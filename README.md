@@ -16,7 +16,7 @@
                          |-img2.jpg
                          ...
                     ...
-            |- valid                # 自定义数据集的验证数据
+            |- val                  # 自定义数据集的验证数据
                     |- class1
                         |-img1.jpg
                         |-img2.jpg
@@ -26,15 +26,6 @@
                          |-img2.jpg
                          ...
                     ...
-            |- test                  # 自定义数据集的测试数据
-                    |- class1
-                        |-img1.jpg
-                        |-img2.jpg
-                        ...
-                    |- class2  
-                         |-img1.jpg
-                         |-img2.jpg
-                         ...
 
 ## 使用流程
 1. 参考cla_config编辑自己的配置
