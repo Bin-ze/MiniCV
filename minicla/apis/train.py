@@ -3,18 +3,12 @@ import logging
 
 import torch.nn as nn
 
-
-from tqdm import tqdm
-
 class Trainer:
     def __init__(self, model, optimizer, dataloder, train_num, val_num,save_path, config):
 
         self.config = config
-
         # build loss
         self.loss = nn.CrossEntropyLoss()
-
-
         # 解析配置
         self.device = self.config['device']
         self.epochs = self.config["epoch"]
@@ -31,7 +25,6 @@ class Trainer:
         self.model = model.to(self.device)
 
         self.optimizer = optimizer
-
 
     def run_epoch(self, epoch):
 
@@ -81,7 +74,6 @@ class Trainer:
                 self.best_acc = val_accurate
                 torch.save(self.model.state_dict(), self.save_path + 'best.pth')
 
-
     def run(self):
 
         for epoch in range(self.epochs):
@@ -94,8 +86,3 @@ class Trainer:
 
 
         return
-
-
-
-
-

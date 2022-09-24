@@ -1,16 +1,15 @@
 import os
-import json
-import argparse
-import logging
 import sys
+import json
 import torch
+import logging
+import argparse
 
 import torch.optim as optim
 
 from torchvision import transforms, datasets
 from minicla.builder import build_model
 from minicla.apis.train import Trainer
-
 
 
 def Parse_config(config):
@@ -34,8 +33,6 @@ if __name__ == '__main__':
     config = Parse_config(args.config)
     logging.info(config)
 
-
-
     # instance dataset
     data_transform = {
         "train": transforms.Compose([transforms.RandomResizedCrop(224),
@@ -49,8 +46,9 @@ if __name__ == '__main__':
     train_dataset = datasets.ImageFolder(root=os.path.join(config["dataset_path"], "train"),
                                          transform=data_transform["train"])
     train_num = len(train_dataset)
-
-
+    train_loader = torch.utils.data.DataLoader(train_dataset,
+                                               batch_size=config["batch_size"], shuffle=True,
+                                               num_workers=config["num_worker"])
 
     cla_list = train_dataset.class_to_idx
     cla_dict = dict((val, key) for key, val in cla_list.items())
@@ -64,40 +62,20 @@ if __name__ == '__main__':
         json_file.write(json_str)
 
 
-    train_loader = torch.utils.data.DataLoader(train_dataset,
-                                               batch_size=config["batch_size"], shuffle=True,
-                                               num_workers=config["num_worker"])
-
     validate_dataset = datasets.ImageFolder(root=os.path.join(config["dataset_path"], "val"),
                                             transform=data_transform["val"])
     val_num = len(validate_dataset)
     val_loader = torch.utils.data.DataLoader(validate_dataset,
                                                   batch_size=4, shuffle=False,
                                                   num_workers=config["num_worker"])
-
-
     # instance model
     model = build_model(config['model'])
 
     # build optimizer
-    optimizer = optim.Adam(model.parameters(),config["lr"])
+    optimizer = optim.Adam(model.parameters(), config["lr"])
 
     # 初始化Trainer
     Trainer = Trainer(model=model, optimizer=optimizer, dataloder=[train_loader, val_loader],
                       train_num=train_num, val_num=val_num, save_path=save_path, config=config)
 
     Trainer.run()
-
-
-
-
-
-
-
-
-
-
-
-
-
-

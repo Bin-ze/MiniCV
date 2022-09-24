@@ -33,8 +33,6 @@ if __name__ == '__main__':
     config = Parse_config(args.config)
     logging.info(config)
 
-
-
     # instance dataset
     data_transform = {
         "val": transforms.Compose([transforms.Resize((224, 224)),  # cannot 224, must (224, 224)
@@ -49,7 +47,6 @@ if __name__ == '__main__':
                                                   batch_size=4, shuffle=False,
                                                   num_workers=config["num_worker"])
 
-
     # instance model
     model = build_model(config['model'])
     model.load_state_dict(torch.load(args.model_path))
@@ -58,17 +55,3 @@ if __name__ == '__main__':
     Validator = Validator(model=model, dataloder=val_loader, val_num=val_num, config=config)
 
     Validator.run()
-
-
-
-
-
-
-
-
-
-
-
-
-
-

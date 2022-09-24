@@ -47,7 +47,6 @@ class Tester:
 
         logging.info(print_res)
 
-
     def run(self, img_path):
 
         if os.path.isdir(img_path):
@@ -60,8 +59,3 @@ class Tester:
             self.test(img)
 
         return
-
-
-
-
-

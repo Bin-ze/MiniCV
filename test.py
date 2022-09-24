@@ -1,9 +1,8 @@
-import os
-import json
-import argparse
-import logging
 import sys
+import json
 import torch
+import logging
+import argparse
 
 from minicla.builder import build_model
 from minicla.apis.test import Tester
@@ -42,17 +41,3 @@ if __name__ == '__main__':
     Tester = Tester(model=model, config=config)
 
     Tester.run(args.img_path)
-
-
-
-
-
-
-
-
-
-
-
-
-
-

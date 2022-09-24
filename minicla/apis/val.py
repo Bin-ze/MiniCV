@@ -1,9 +1,6 @@
 import torch
 import logging
 
-import torch.nn as nn
-
-
 class Validator:
     def __init__(self, model, dataloder, val_num, config):
 
@@ -17,7 +14,6 @@ class Validator:
         self.val_loader = dataloder
 
         self.model = model.to(self.device)
-
 
     @torch.no_grad()
     def validate(self):
@@ -35,7 +31,6 @@ class Validator:
 
             logging.info('validation')
             logging.info('val_accuracy: %.3f' %(val_accurate))
-
 
     def run(self):
 
