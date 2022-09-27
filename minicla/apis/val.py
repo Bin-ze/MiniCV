@@ -18,19 +18,19 @@ class Validator:
     @torch.no_grad()
     def validate(self):
 
-            acc = 0.0  # accumulate accurate number / epoch
-            with torch.no_grad():
-                val_bar = self.val_loader
-                for step, val_data in enumerate(val_bar):
-                    val_images, val_labels = val_data
-                    outputs = self.model(val_images.to(self.device))
-                    predict_y = torch.max(outputs, dim=1)[1]
-                    acc += torch.eq(predict_y, val_labels.to(self.device)).sum().item()
+        self.model.eval()
+        acc = 0.0  # accumulate accurate number / epoch
+        val_bar = self.val_loader
+        for step, val_data in enumerate(val_bar):
+            val_images, val_labels = val_data
+            outputs = self.model(val_images.to(self.device))
+            predict_y = torch.max(outputs, dim=1)[1]
+            acc += torch.eq(predict_y, val_labels.to(self.device)).sum().item()
 
-            val_accurate = acc / self.val_num
+        val_accurate = acc / self.val_num
 
-            logging.info('validation')
-            logging.info('val_accuracy: %.3f' %(val_accurate))
+        logging.info('validation')
+        logging.info('val_accuracy: %.3f' %(val_accurate))
 
     def run(self):
 

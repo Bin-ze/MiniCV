@@ -51,15 +51,15 @@ class Trainer:
 
     @torch.no_grad()
     def validate(self, epoch):
-
+            self.model.eval()
             acc = 0.0  # accumulate accurate number / epoch
-            with torch.no_grad():
-                val_bar = self.val_loader
-                for val_data in val_bar:
-                    val_images, val_labels = val_data
-                    outputs = self.model(val_images.to(self.device))
-                    predict_y = torch.max(outputs, dim=1)[1]
-                    acc += torch.eq(predict_y, val_labels.to(self.device)).sum().item()
+
+            val_bar = self.val_loader
+            for val_data in val_bar:
+                val_images, val_labels = val_data
+                outputs = self.model(val_images.to(self.device))
+                predict_y = torch.max(outputs, dim=1)[1]
+                acc += torch.eq(predict_y, val_labels.to(self.device)).sum().item()
 
             val_accurate = acc / self.val_num
 
