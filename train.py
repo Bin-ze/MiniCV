@@ -27,7 +27,7 @@ if __name__ == '__main__':
                         format="%(asctime)s | %(filename)s:%(lineno)d | %(levelname)s | %(message)s")
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config", type=str, default='cla_config/alexnet.json')
+    parser.add_argument("--config", type=str, default='cla_config/mobilenet.json')
     args = parser.parse_args()
 
     config = Parse_config(args.config)
@@ -38,10 +38,10 @@ if __name__ == '__main__':
         "train": transforms.Compose([transforms.RandomResizedCrop(224),
                                      transforms.RandomHorizontalFlip(),
                                      transforms.ToTensor(),
-                                     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]),
+                                     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])]),
         "val": transforms.Compose([transforms.Resize((224, 224)),  # cannot 224, must (224, 224)
                                    transforms.ToTensor(),
-                                   transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])}
+                                   transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])])}
 
     train_dataset = datasets.ImageFolder(root=os.path.join(config["dataset_path"], "train"),
                                          transform=data_transform["train"])

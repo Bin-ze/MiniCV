@@ -5,6 +5,7 @@ import json
 
 from PIL import Image
 from torchvision import transforms
+from utils.timer import timer
 
 class Tester:
     def __init__(self, model, config):
@@ -21,10 +22,10 @@ class Tester:
         self.model = model.to(self.device)
 
         self.data_transform = transforms.Compose(
-            [transforms.Resize(256),
-             transforms.CenterCrop(224),
-             transforms.ToTensor(),
-             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])])
+        [transforms.Resize(256),
+         transforms.CenterCrop(224),
+         transforms.ToTensor(),
+         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])])
 
     def preprocessing(self, img_path):
 
@@ -35,9 +36,10 @@ class Tester:
 
         return img
 
+    @timer
     @torch.no_grad()
     def test(self, img):
-
+        self.model.eval()
         output = torch.squeeze(self.model(img.to(self.device))).cpu()
         predict = torch.softmax(output, dim=0)
         predict_cla = torch.argmax(predict).numpy()

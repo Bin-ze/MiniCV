@@ -24,9 +24,9 @@ if __name__ == '__main__':
                         format="%(asctime)s | %(filename)s:%(lineno)d | %(levelname)s | %(message)s")
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config", type=str, default='cla_config/alexnet.json')
-    parser.add_argument("--model_path", type=str, default='runs/AlexNet/best.pth')
-    parser.add_argument("--img_path", type=str, default='/mnt/c/Users/Bin-ze/Desktop/food_fake_real_classification_清洗/val/3/0001.jpg')
+    parser.add_argument("--config", type=str, default='cla_config/mobilenet.json')
+    parser.add_argument("--model_path", type=str, default='runs/MobileNetV2/best.pth')
+    parser.add_argument("--img_path", type=str, default='/mnt/data/beijing_daima/0724_liutao_singledish/0302_yi/val_after_5/1')
     args = parser.parse_args()
 
     config = Parse_config(args.config)

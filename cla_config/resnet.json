@@ -9,10 +9,10 @@
     "object": "Adam"
   },
 
-  "epoch": 30,
-  "lr": 0.0001,
-  "dataset_path": "/mnt/c/Users/Bin-ze/Desktop/food_fake_real_classification_清洗",
-  "batch_size": 16,
+  "epoch": 20,
+  "lr": 0.001,
+  "dataset_path": "/mnt/data/beijing_daima/0724_liutao_singledish/0302_yi/",
+  "batch_size": 64,
   "num_worker" : 8,
   "save_path": "runs",
   "val_frequency": 1,
